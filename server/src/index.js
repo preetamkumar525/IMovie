@@ -5,6 +5,7 @@ const cors = require('cors');
 const helmet = require('helmet');
 const dotenv = require('dotenv');
 const cron = require('node-cron');
+const path = require('path');
 
 dotenv.config();
 
@@ -38,7 +39,7 @@ const io = new Server(server, {
 initSeatSocket(io);
 
 // Security & Parsing Middlewares
-app.use(helmet({ crossOriginResourcePolicy: false }));
+app.use(helmet({ contentSecurityPolicy: false, crossOriginEmbedderPolicy: false, crossOriginResourcePolicy: false }));
 app.use(
   cors({
     origin: '*',
@@ -64,12 +65,21 @@ app.use('/api/shows', showRoutes);
 app.use('/api/bookings', bookingRoutes);
 app.use('/api/admin', adminRoutes);
 
-// Catch-all 404 for undefined routes
-app.use('*', (req, res) => {
+// Serve static frontend assets from client/dist
+const clientDistPath = path.resolve(__dirname, '../../client/dist');
+app.use(express.static(clientDistPath));
+
+// API 404 handler (if an /api route is not matched)
+app.all('/api/*', (req, res) => {
   res.status(404).json({
     success: false,
     message: `API endpoint ${req.originalUrl} not found`,
   });
+});
+
+// Catch-all route to serve client/dist/index.html for React Router SPA
+app.get('*', (req, res) => {
+  res.sendFile(path.join(clientDistPath, 'index.html'));
 });
 
 // Centralized Error Handler
