@@ -1,0 +1,270 @@
+:root {
+  --cinema-bg: #0b0f19;
+  --cinema-card: #111827;
+  --cinema-card-hover: #172033;
+  --cinema-border: rgba(255, 255, 255, 0.08);
+  --cinema-primary: #e50914; /* Netflix/Cinema Red */
+  --cinema-accent: #f59e0b; /* Golden Glow */
+  --cinema-purple: #8b5cf6;
+  --cinema-font: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+  --cinema-body-font: 'Plus Jakarta Sans', sans-serif;
+
+  /* Seat colors */
+  --seat-silver: #64748b;
+  --seat-gold: #f59e0b;
+  --seat-premium: #a855f7;
+  --seat-selected: #10b981;
+  --seat-held: #f97316;
+  --seat-booked: #334155;
+}
+
+body {
+  margin: 0;
+  font-family: var(--cinema-body-font);
+  background-color: var(--cinema-bg);
+  color: #f3f4f6;
+  min-height: 100vh;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4, h5, h6, .brand-font {
+  font-family: var(--cinema-font);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+/* Glassmorphism Card */
+.cinema-card {
+  background: rgba(17, 24, 39, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--cinema-border);
+  border-radius: 16px;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+.cinema-card:hover {
+  border-color: rgba(245, 158, 11, 0.3);
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+}
+
+.cinema-card-interactive {
+  cursor: pointer;
+}
+
+.cinema-card-interactive:hover {
+  transform: translateY(-4px);
+}
+
+/* Hero Section */
+.hero-gradient {
+  background: radial-gradient(circle at 50% 10%, rgba(229, 9, 20, 0.15) 0%, rgba(11, 15, 25, 0) 70%);
+}
+
+.hero-backdrop-overlay {
+  background: linear-gradient(180deg, rgba(11, 15, 25, 0.4) 0%, rgba(11, 15, 25, 0.95) 80%, #0b0f19 100%);
+}
+
+/* Movie Poster Card Glow */
+.movie-poster-wrap {
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
+}
+
+.movie-poster-wrap:hover {
+  transform: translateY(-6px) scale(1.02);
+  box-shadow: 0 20px 35px -10px rgba(0, 0, 0, 0.8), 0 0 25px -5px rgba(229, 9, 20, 0.3);
+}
+
+/* Cinema Curved Screen */
+.cinema-screen-container {
+  perspective: 500px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.cinema-screen-curve {
+  width: 75%;
+  height: 24px;
+  border-top: 4px solid #60a5fa;
+  border-radius: 50% / 100% 100% 0 0;
+  box-shadow: 0 14px 28px -5px rgba(96, 165, 250, 0.4), inset 0 2px 8px rgba(96, 165, 250, 0.6);
+  position: relative;
+}
+
+.cinema-screen-glow {
+  width: 60%;
+  height: 40px;
+  background: radial-gradient(ellipse at center, rgba(96, 165, 250, 0.15) 0%, rgba(11, 15, 25, 0) 70%);
+  margin-top: -10px;
+}
+
+/* Seat Grid Styles */
+.seat-btn {
+  width: 32px;
+  height: 32px;
+  margin: 4px;
+  border-radius: 8px 8px 3px 3px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  font-size: 11px;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  user-select: none;
+  cursor: pointer;
+  position: relative;
+}
+
+.seat-btn:hover:not(:disabled) {
+  transform: scale(1.15);
+  z-index: 2;
+}
+
+/* Seat Types & States */
+.seat-silver {
+  background: linear-gradient(145deg, #475569, #334155);
+  color: #cbd5e1;
+  border-color: #64748b;
+}
+
+.seat-gold {
+  background: linear-gradient(145deg, #b45309, #78350f);
+  color: #fef08a;
+  border-color: #f59e0b;
+}
+
+.seat-premium {
+  background: linear-gradient(145deg, #7e22ce, #581c87);
+  color: #f3e8ff;
+  border-color: #a855f7;
+}
+
+.seat-selected {
+  background: linear-gradient(145deg, #10b981, #059669) !important;
+  color: #ffffff !important;
+  border-color: #34d399 !important;
+  box-shadow: 0 0 12px rgba(16, 185, 129, 0.7);
+  transform: scale(1.1);
+}
+
+.seat-held {
+  background: linear-gradient(145deg, #ea580c, #9a3412) !important;
+  color: #ffedd5 !important;
+  border-color: #fb923c !important;
+  cursor: not-allowed !important;
+  opacity: 0.85;
+  animation: pulse-held 2s infinite;
+}
+
+.seat-held-by-me {
+  background: linear-gradient(145deg, #0284c7, #0369a1) !important;
+  color: #ffffff !important;
+  border-color: #38bdf8 !important;
+  box-shadow: 0 0 10px rgba(56, 189, 248, 0.6);
+}
+
+.seat-booked {
+  background: #1e293b !important;
+  color: #475569 !important;
+  border-color: #334155 !important;
+  cursor: not-allowed !important;
+  opacity: 0.45;
+  text-decoration: line-through;
+}
+
+@keyframes pulse-held {
+  0%, 100% { opacity: 0.9; }
+  50% { opacity: 0.55; }
+}
+
+/* Digital Ticket Styles */
+.digital-ticket {
+  background: #111827;
+  border-radius: 20px;
+  position: relative;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  overflow: hidden;
+  box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.7);
+}
+
+.ticket-notch-left, .ticket-notch-right {
+  position: absolute;
+  top: 50%;
+  width: 28px;
+  height: 28px;
+  background-color: var(--cinema-bg);
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  transform: translateY(-50%);
+  z-index: 5;
+}
+
+.ticket-notch-left {
+  left: -14px;
+}
+
+.ticket-notch-right {
+  right: -14px;
+}
+
+.ticket-divider {
+  border-top: 2px dashed rgba(255, 255, 255, 0.15);
+  margin: 1.5rem 0;
+  position: relative;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0b0f19;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #1f2937;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #374151;
+}
+
+/* Buttons and Badges */
+.btn-cinema-red {
+  background-color: #e50914;
+  border-color: #e50914;
+  color: #ffffff;
+  font-weight: 600;
+  transition: all 0.2s;
+}
+
+.btn-cinema-red:hover {
+  background-color: #b80710;
+  border-color: #b80710;
+  color: #ffffff;
+  box-shadow: 0 0 15px rgba(229, 9, 20, 0.4);
+}
+
+.btn-cinema-gold {
+  background: linear-gradient(135deg, #f59e0b, #d97706);
+  border: none;
+  color: #0b0f19;
+  font-weight: 700;
+  transition: all 0.2s;
+}
+
+.btn-cinema-gold:hover {
+  background: linear-gradient(135deg, #fbbf24, #f59e0b);
+  box-shadow: 0 0 18px rgba(245, 158, 11, 0.4);
+  color: #0b0f19;
+}
